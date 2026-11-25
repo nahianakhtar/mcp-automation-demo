@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+
+# Lint, test, and coverage caches
+.pytest_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# recon-mcp runtime outputs
+.recon/
+out/
+
+# Editor and OS files
+.DS_Store
+*.swp
+*.swo
