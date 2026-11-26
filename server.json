@@ -1,0 +1,16 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
+  "name": "io.github.nahianakhtar/mcp-automation-demo",
+  "description": "Exact Decimal ROUND_HALF_EVEN CSV/SQLite invoice reconciliation stdio MCP server & CLI with read-only URI confinement and JSONL audit logs.",
+  "version": "1.1.0",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "mcp-automation-demo",
+      "version": "1.1.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}
