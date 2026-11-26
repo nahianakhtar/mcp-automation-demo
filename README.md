@@ -4,7 +4,7 @@ Offline invoice and expense reconciliation CLI (`recon`) and MCP stdio server (`
 
 ## Key Capabilities & Guardrails
 
-- **Input sources**: Reads CSV (`.csv`) and SQLite (`.sqlite`, `.db`) inputs with required columns `id, date, counterparty, amount, currency, reference`. SQLite connections open read-only (`mode=ro` + `PRAGMA query_only = ON`) and validate table names against `^[A-Za-z_][A-Za-z0-9_]{0,63}$` and `sqlite_master`—no caller-supplied SQL is executed.
+- **Input sources**: Reads CSV (`.csv`) and SQLite (`.sqlite`, `.db`) inputs with required columns `id, date, counterparty, amount, currency, reference`. SQLite connections open read-only (`mode=ro` + `PRAGMA query_only = ON`) and validate table names against `^[A-Za-z_][A-Za-z0-9_]{0,63}$` and `sqlite_master`; no caller-supplied SQL is executed.
 - **Deterministic `Decimal` matching**: Parses amounts with `decimal.Decimal` (never `float`), quantized to `0.01` using `ROUND_HALF_EVEN`. Matches in order: (1) exact `reference` within `tolerance`, then (2) casefolded `counterparty` within `tolerance` and `window_days`. Currency mismatches never match; ties break deterministically by smallest amount delta, smallest date delta, and `id`.
 - **Policy-enforced guardrails**:
   - Read-only by default (`allow_write=False` unless `--allow-write` or `RECON_ALLOW_WRITE=1`).
