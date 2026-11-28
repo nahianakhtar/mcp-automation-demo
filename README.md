@@ -1,11 +1,11 @@
 # recon-mcp
 
-Offline invoice and expense reconciliation CLI (`recon`) and MCP stdio server (`mcp==2.3.0`, `MCPServer`) with deterministic `Decimal` matching, strict read/write guardrails, and append-only JSONL audit logging.
+Offline invoice and expense reconciliation CLI (`recon`) and MCP stdio server (`mcp==2.3.0`, `MCPServer`) with exact `Decimal` matching, strict read/write guardrails, and append-only JSONL audit logging.
 
 ## Key Capabilities & Guardrails
 
 - **Input sources**: Reads CSV (`.csv`) and SQLite (`.sqlite`, `.db`) inputs with required columns `id, date, counterparty, amount, currency, reference`. SQLite connections open read-only (`mode=ro` + `PRAGMA query_only = ON`) and validate table names against `^[A-Za-z_][A-Za-z0-9_]{0,63}$` and `sqlite_master`; no caller-supplied SQL is executed.
-- **Deterministic `Decimal` matching**: Parses amounts with `decimal.Decimal` (never `float`), quantized to `0.01` using `ROUND_HALF_EVEN`. Matches in order: (1) exact `reference` within `tolerance`, then (2) casefolded `counterparty` within `tolerance` and `window_days`. Currency mismatches never match; ties break deterministically by smallest amount delta, smallest date delta, and `id`.
+- **Exact `Decimal` matching**: Parses amounts with `decimal.Decimal` (never `float`), quantized to `0.01` using `ROUND_HALF_EVEN`. Matches in order: (1) exact `reference` within `tolerance`, then (2) casefolded `counterparty` within `tolerance` and `window_days`. Currency mismatches never match; ties break deterministically by smallest amount delta, smallest date delta, and `id`.
 - **Policy-enforced guardrails**:
   - Read-only by default (`allow_write=False` unless `--allow-write` or `RECON_ALLOW_WRITE=1`).
   - Exports run as dry runs by default (`written=False`) unless both `allow_write` and `--apply` / `apply=True` are set.
